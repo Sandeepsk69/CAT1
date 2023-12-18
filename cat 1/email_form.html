@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gmail - Basic Interface</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Login container */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #fff;
+        }
+
+        .gmail-logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .login-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .login-form input,
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .login-form button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Mail list, compose mail, view mail sections */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .mail-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .mail-item:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container">
+        <img class="gmail-logo" src="https://www.gstatic.com/images/branding/product/1x/gmail_24dp.png" alt="Gmail Logo">
+        <div class="login-form">
+            <h2>Login to Gmail</h2>
+            <form onsubmit="return showMailList()">
+                <input type="email" name="email" placeholder="Email" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mail Listing Page -->
+    <div id="mail-list" class="container">
+        <h2>Inbox</h2>
+        <div class="mail-list">
+            <!-- List of mails would be dynamically populated here -->
+        </div>
+    </div>
+
+    <!-- Compose New Mail Page -->
+    <div id="compose-mail" class="container">
+        <h2>New Mail</h2>
+        <form onsubmit="return showViewMail()">
+            <input type="email" name="to" placeholder="To" required><br>
+            <input type="text" name="subject" placeholder="Subject" required><br>
+            <textarea name="message" placeholder="Compose your message" required></textarea><br>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- View Mail Page -->
+    <div id="view-mail" class="container">
+        <h2>Mail Subject</h2>
+        <p>From: sender@example.com</p>
+        <p>Date: MM/DD/YYYY</p>
+        <div class="mail-content">
+            <p>This is the content of the mail.</p>
+        </div>
+    </div>
+
+    <script>
+        function showMailList() {
+            // Simulated mail data for demonstration
+            const mails = [
+                {
+                    subject: 'First Mail',
+                    sender: 'sender1@example.com',
+                    date: 'MM/DD/YYYY'
+                },
+                {
+                    subject: 'Second Mail',
+                    sender: 'sender2@example.com',
+                    date: 'MM/DD/YYYY'
+                },
+                // Add more mail objects as needed
+            ];
+
+            const mailListDiv = document.querySelector('#mail-list .mail-list');
+            mailListDiv.innerHTML = ''; // Clear previous content
+
+            mails.forEach(mail => {
+                const mailItem = document.createElement('div');
+                mailItem.classList.add('mail-item');
+                mailItem.innerHTML = `
+                    <h3>${mail.subject}</h3>
+                    <p>Sender: ${mail.sender}</p>
+                    <p>Date: ${mail.date}</p>
+                `;
+                mailListDiv.appendChild(mailItem);
+            });
+
+            document.querySelector('.login-container').style.display = 'none';
+            document.getElementById('mail-list').style.display = 'block';
+            return false; // Prevent form submission
+        }
+
+        function showViewMail() {
+            document.getElementById('compose-mail').style.display = 'none';
+            document.getElementById('view-mail').style.display = 'block';
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+</html>
+
+
